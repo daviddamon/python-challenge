@@ -11,11 +11,10 @@
 # modules
 import os
 import csv
+# import datetime # dont need yet - not comparing date
 
-# create profit and loss variables
-maxprof = 0
-maxloss = 0
-rowcount = 0
+# set variables
+rowcount, TPL, maxprofit, maxloss, months = 0
 
 # set path for file
 csvpath = os.path.join("..", "Resources", "budget_data.csv")
@@ -31,24 +30,27 @@ with open(csvpath) as csvfile:
         rowcount += 1
 
         # calculate total profit or loss
-        TPL = TPL + row[1]
+        TPL = TPL + int(row[1])
 
         # record maximum profit
-        if row[1] > maxprof
-            row[1] = maxprof
-            row[0] = maxdate
+        if row[1] > maxprofit
+            maxprofit = int(row[1]) and maxdate = str(row[0])
 
         # record maximum loss
         if row[1] < maxloss
-            row[1] = maxloss
-            row[0] = mindate
+            maxloss = int(row[1]) and mindate = str(row[0])
+
+    # calculate months
+    months = rowcount - 1
 
     # print to terminal
-    print(f"Total Months: "{rowcount -1})
+    print(f"Total Months: "{months})
 
     print(f"Total: $"{TPL})
 
-    print (f"Greatest Increase in Profits: "{maxdate}"  ($"{maxprof}")")
+    print(f"Average Change: $"{float(TPL/months)})
+
+    print (f"Greatest Increase in Profits: "{maxdate}"  ($"{maxprofit}")")
 
     print (f"Greatest Decrease in Profits: "{mindate}"  ($"{maxloss}")")
            
