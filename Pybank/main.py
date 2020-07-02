@@ -11,44 +11,39 @@
 # modules
 import os
 import csv
-# import datetime # dont need yet - not comparing date
 
 # set variables
-rowcount, TPL, maxprofit, maxloss, months = 0
+TPL, maxprofit, maxloss, months = 0
 
 # set path for file
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
 # open the CSV
 with open(csvpath) as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
+    csv_dict_reader = csv.DictReader(csvfile, delimiter=',')
 
+    
     # loop through to create dictionary
-    for row in csvreader:
+    for row in csv_dict_reader:
 
-        ledger = ('date': 'row[0]', 'profit': 'row[1]')
+        # print(row)
 
+        date = row['Date']
+        profit = int(row['Profit/Losses'])
 
+        # calculate total profit or loss
+        TPL = TPL + profit
 
-    # count number of rows
-    num_rows = len(ledger)
+        # record maximum profit
+        if profit > maxprofit
+            maxprofit = profit and maxdate = date
 
+        # record maximum loss
+        if profit < maxloss
+            maxloss = profit and mindate = date
 
-
-
-    # calculate total profit or loss
-    TPL = TPL + int(row[1])
-
-    # record maximum profit
-    if row[1] > maxprofit
-        maxprofit = int(row[1]) and maxdate = str(row[0])
-
-    # record maximum loss
-    if row[1] < maxloss
-        maxloss = int(row[1]) and mindate = str(row[0])
-
-    # calculate months
-    months = num_rows - 1
+     # count number of rows
+    months = len(ledger) - 1
 
     # print to terminal
     print(f"Total Months: "{months})
