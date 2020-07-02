@@ -12,8 +12,11 @@
 import os
 import csv
 
-# set variables
-TPL, maxprofit, maxloss, months = 0
+# initialize variables
+total_profit_loss = 0
+max_profit = 0
+max_loss = 0
+months = 0
 
 # set path for file
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
@@ -22,47 +25,50 @@ csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 with open(csvpath) as csvfile:
     csv_dict_reader = csv.DictReader(csvfile, delimiter=',')
 
-    
+    # count number of rows
+    months = len(list(csv_dict_reader)) - 1
+    print(months)
+
     # loop through to create dictionary
     for row in csv_dict_reader:
 
-        # print(row)
+        print(row)
 
         date = row['Date']
         profit = int(row['Profit/Losses'])
 
         # calculate total profit or loss
-        TPL = TPL + profit
+        total_profit_loss = total_profit_loss + profit
 
         # record maximum profit
-        if profit > maxprofit
-            maxprofit = profit and maxdate = date
-
+        if profit > max_profit:
+            max_profit = profit
+            max_date = date
+     
         # record maximum loss
-        if profit < maxloss
-            maxloss = profit and mindate = date
+        if profit < max_loss:
+            max_loss = profit
+            min_date = date
 
-     # count number of rows
-    months = len(ledger) - 1
+   
 
-    # print to terminal
-    print(f"Total Months: "{months})
-    print(f"Total: $"{TPL})
-    print(f"Average Change: $"{float(TPL/months)})
-    print(f"Greatest Increase in Profits: "{maxdate}"  ($"{maxprofit}")")
-    print(f"Greatest Decrease in Profits: "{mindate}"  ($"{maxloss}")")
+# print to terminal
+print(f'Total Months: {months}')
+print(f'Total: ${total_profit_loss}')
+print(f'Average Change: ${float(total_profit_loss/months)}')
+print(f'Greatest Increase in Profits: {max_date}  (${max_profit})')
+print(f'Greatest Decrease in Profits: {min_date}  (${max_loss})')
 
+# write new text document
+# set destination file path
+txtpath = os.path.join('..', 'Analysis', 'summary.txt')
 
+# create a text file in Analysis folder  
+filename = 'summary.txt'
+with open(filename, 'w') as output:
 
-    # set destination file path
-    # fix    txtpath = os.path.join('..', 'Analysis', 'summary.txt')
-
-    # create a text file in Analysis folder  
-    filename = 'summary.txt'
-    with open(filename, 'w') as output:
-
-        output.write(f"Total Months: "{months})
-        output.write(f"Total: $"{TPL})
-        output.write(f"Average Change: $"{float(TPL/months)})
-        output.write(f"Greatest Increase in Profits: "{maxdate}"  ($"{maxprofit}")")
-        output.write(f"Greatest Decrease in Profits: "{mindate}"  ($"{maxloss}")")
+    output.write(f'Total Months: {months}')
+    output.write(f'Total: ${total_profit_loss}')
+    output.write(f'Average Change: ${float(total_profit_loss/months)}')
+    output.write(f'Greatest Increase in Profits: {max_date}  (${max_profit})')
+    output.write(f'Greatest Decrease in Profits: {min_date}  (${max_loss})')
