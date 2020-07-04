@@ -16,59 +16,65 @@ import csv
 total_profit_loss = 0
 max_profit = 0
 max_loss = 0
-months = 0
+max_profit_date = 0
+max_loss_date = 0
+month_count = 0
 
-# set path for file
-csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
+# set path for data file
+csvpath = os.path.join('Resources', 'budget_data.csv')
 
 # open the CSV
-with open(csvpath) as csvfile:
-    csv_dict_reader = csv.DictReader(csvfile, delimiter=',')
+with open(csvpath, 'r') as csvfile:
+    csv_reader = csv.reader(csvfile, delimiter=',')
 
-    # count number of rows
-    months = len(list(csv_dict_reader)) - 1
-    print(months)
+    # print csv contents as check
+    print(csv_reader)
 
-    # loop through to create dictionary
-    for row in csv_dict_reader:
+    # read the header row and print as check
+    csv_header = next(csv_reader)
+    print(f"CSV Header: {csv_header}")
 
-        print(row)
+    # read each row of data file after header
+    for row in csv_reader:
 
-        date = row['Date']
-        profit = int(row['Profit/Losses'])
+        print(row) # another row check to be commented out later
 
+        date = row[0]
+        profit = int(row[1])
+
+        # increment month counter
+        month_count += 1
+        
         # calculate total profit or loss
         total_profit_loss = total_profit_loss + profit
 
         # record maximum profit
         if profit > max_profit:
             max_profit = profit
-            max_date = date
+            max_profit_date = date
      
         # record maximum loss
         if profit < max_loss:
             max_loss = profit
-            min_date = date
-
-   
+            max_loss_date = date
 
 # print to terminal
-print(f'Total Months: {months}')
+print(f'Total Months: {month_count}')
 print(f'Total: ${total_profit_loss}')
-print(f'Average Change: ${float(total_profit_loss/months)}')
-print(f'Greatest Increase in Profits: {max_date}  (${max_profit})')
-print(f'Greatest Decrease in Profits: {min_date}  (${max_loss})')
+print(f'Average Change: ${round(total_profit_loss/month_count,2)}')
+print(f'Greatest Increase in Profits: {max_profit_date}  (${max_profit})')
+print(f'Greatest Decrease in Profits: {max_loss_date}  (${max_loss})')
 
 # write new text document
 # set destination file path
-txtpath = os.path.join('..', 'Analysis', 'summary.txt')
+txtpath = os.path.join('..', 'Analysis')
 
 # create a text file in Analysis folder  
 filename = 'summary.txt'
 with open(filename, 'w') as output:
 
-    output.write(f'Total Months: {months}')
-    output.write(f'Total: ${total_profit_loss}')
-    output.write(f'Average Change: ${float(total_profit_loss/months)}')
-    output.write(f'Greatest Increase in Profits: {max_date}  (${max_profit})')
-    output.write(f'Greatest Decrease in Profits: {min_date}  (${max_loss})')
+    output.write(f'Total Months: {month_count}\n')
+    output.write(f'Total: ${total_profit_loss}\n')
+    output.write(f'Average Change: ${round(total_profit_loss/month_count,2)}\n')
+    output.write(f'Greatest Increase in Profits: {max_profit_date}  (${max_profit})\n')
+    output.write(f'Greatest Decrease in Profits: {max_loss_date}  (${max_loss})\n')
