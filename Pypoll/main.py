@@ -1,6 +1,6 @@
 #Pypoll
 
-#OUTPUT
+#OUTPUT SAMPLE
 #Election Results
 #-------------------------
 #Total Votes: 3521001
@@ -20,34 +20,52 @@ import os
 import csv
 
 # initialize variables
-vote_count = 0
+total_votes = 0
 
+# create lists to store data
+unique_candidate_name = []
+candidate_votes = []
+percent_votes = []
 
-# headers in csv file
-VoterID
-County
-Candidate
 
 # set path for data file
 csvpath = os.path.join('Resources', 'election_data.csv')
 
 # open the CSV
-with open(csvpath, newline='') as csvfile:
-  csv_reader = csv.DictReader(csvfile, delimiter=',')
+with open(csvpath, 'r') as csvfile:
+  reader = csv.DictReader(csvfile, delimiter=',')
 
-  # print csv contents as check
-  # print(csv_reader)
+  # read the header row and print as check
+  csv_header = next(reader)
+  print(f"Header: {csv_header}")
 
-    # read the header row and print as check
-    #csv_header = next(csv_reader)
-    #print(f"CSV Header: {csv_header}")
+  # read each row of data file after header
+  for row in reader:
 
-    # read each row of data file after header
-    for row in csv_reader:
+    # print a few rows of dictionary to check
+    #if i < 3
+      #print row
+      #i += 1
 
-        print(row) # another row check to be commented out later
+    candidate = row["Candidate"]
 
-       
+    total_votes = len(candidate)
+
+    
+    # find all candidate names and create new list
+
+    unique_candidate_name.append(set(candidate))
+
+    # just a check of names
+    print("Unique Candidate Names: ",unique_candidate_name)
+
+    # count votes per candidate
+    candidate_votes = unique_candidate_name.count
+
+    # calculate percentage of votes per candidate
+    percent_votes = round((candidate_votes/total_votes)*100,3)
+
+
 
 # print to terminal
 
@@ -63,12 +81,12 @@ with open(csvpath, newline='') as csvfile:
 
 print('Election Results') 
 print('-------------------------')
-print(f'Total Votes: {vote_count}')
+print(f'Total Votes: {total_votes}')
 print('-------------------------')
 
 for 
-  candidate_percent = round(candidate_votes/vote_count,3)
-  print(f'{candidate_name}: {candidate_percent}%  ({candidate_vote})')
+  
+  print(f'{unique_candidate_name}: {percent_votes}%  ({candidate_votes})')
 
 
 # write new text document
