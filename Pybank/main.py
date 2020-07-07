@@ -28,17 +28,18 @@ with open(csvpath, 'r') as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=',')
 
     # print csv contents as check
-    print(csv_reader)
+    # print(csv_reader)
 
     # read the header row and print as check
     csv_header = next(csv_reader)
-    print(f"CSV Header: {csv_header}")
+    #print(f"CSV Header: {csv_header}")
 
     # read each row of data file after header
     for row in csv_reader:
 
-        print(row) # another row check to be commented out later
+        # print(row)
 
+        # assign names to data columns
         date = row[0]
         profit = int(row[1])
 
@@ -67,10 +68,10 @@ print(f'Greatest Decrease in Profits: {max_loss_date}  (${max_loss})')
 
 # write new text document
 # set destination file path
-txtpath = os.path.join('..', 'Analysis')
+#txtpath = os.path.join('../Analysis/')
 
 # create a text file in Analysis folder  
-filename = 'summary.txt'
+filename = 'Analysis/Pybank_summary.txt'
 with open(filename, 'w') as output:
 
     output.write(f'Total Months: {month_count}\n')
