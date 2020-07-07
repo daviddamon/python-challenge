@@ -20,7 +20,7 @@ import os
 import csv
 
 # initialize variables
-total_votes = 0
+vote_count = 0
 kahn_votes = 0
 correy_votes = 0
 li_votes = 0
@@ -46,63 +46,60 @@ with open(csvpath, 'r') as csvfile:
           print(row)
 
           # increment total vote count
-          total_votes += 1
-          print(total_votes) 
+          vote_count += 1
+          print(vote_count) 
 
-          if row[2] == "Kahn"
+          x = row[2]
+
+          if x == "Kahn":
                kahn_votes += 1
 
-          elif row[2] == "Correy"
+          elif x == "Correy":
                correy_votes += 1
 
-          elif row[2] == "Li"
+          elif x == "Li":
                li_votes += 1
 
-          elif row[2] == "O'Tooley"
+          elif x == "O'Tooley":
                otooley_votes += 1
 
-          else
+# print to terminal as vote check
+print(f'Kahn:  {kahn_votes}')
+print(f'Correy:  {correy_votes}')
+print(f'Li:  {li_votes}')
+print(f'O\'Tooley:  {otooley_votes}')
 
-          print("Kahn:  " + kahn_votes)
-          print("Correy:  " + correy_votes)
-          print("Li:  " + li_votes)
-          print("O'Tooley:  " + otooley_votes)
+# check for winner
+if kahn_votes > correy_votes and kahn_votes > li_votes and kahn_votes > otooley_votes:
+     winner = "Kahn"
 
-     # check for winner
-     if kahn_votes > (correy_votes and li_votes and otooley_votes)
-          winner = "Kahn"
+elif correy_votes > li_votes and correy_votes > otooley_votes and correy_votes > kahn_votes:
+     winner = "Correy"
 
-          elif correy_votes > (li_votes and otooley_votes and kahn_votes)
-          winner = "Correy"
+elif li_votes > otooley_votes and li_votes > kahn_votes and li_votes > correy_votes:
+     winner = "Li"
 
-          elif li_votes > (otooley_votes and kahn_votes and correy_votes)
-          winner = "Li"
+elif otooley_votes > kahn_votes and otooley_votes > correy_votes and otooley_votes > li_votes:
+     winner = "O'Tooley"
 
-          elif otooley_votes > (kahn_votes and correy_votes and li_votes)
-          winner = "O'Tooley"
-     
-     else
-
-     print(winner)
-
-
+print(winner)
 
 # print to terminal
 print('Election Results') 
 print('----------------------------------------')
-print(f'Total Votes: {total_votes}')
+print(f'Total Votes: {vote_count}')
 print('----------------------------------------')
-print('Kahn: ' + round(kahn_votes / total_votes * 100,3) + '%  (' + kahn_votes + ')'
-print('Correy: ' + round(correy_votes / total_votes * 100,3) + '%  (' + correy_votes + ')'
-print('Li: ' + round(li_votes / total_votes * 100,3) + '%  (' + li_votes + ')'
-print('O\'Tooley: ' + round(otooley_votes / total_votes * 100,3) + '%  (' + otooley_votes + ')'
+print('Kahn: ' + str(round(kahn_votes/vote_count * 100,3)) + '%  (' + str(kahn_votes) + ')')
+print('Correy: ' + str(round(correy_votes/vote_count * 100,3)) + '%  (' + str(correy_votes) + ')')
+print('Li: ' + str(round(li_votes/vote_count * 100,3)) + '%  (' + str(li_votes) + ')')
+print('O\'Tooley: ' + str(round(otooley_votes/vote_count * 100,3)) + '%  (' + str(otooley_votes) + ')')
 print('----------------------------------------')
 print(f'Winner: {winner}')
 print('----------------------------------------')
 
 # write new text document in different directory
 # set destination file path
-#filepath = os.path.join('..', 'Analysis')
+#filepath = os.path.join('../Analysis/')
 
 # create a text file in Analysis folder  
 filename = 'Analysis/Pypoll_results.txt'
@@ -110,13 +107,13 @@ with open(filename, 'w') as output:
 
      output.write('Election Results') 
      output.write('----------------------------------------')
-     output.write(f'Total Votes: {total_votes}')
+     output.write(f'Total Votes: {vote_count}')
      output.write('----------------------------------------')
-     output.write('Kahn: ' + round(kahn_votes / total_votes * 100,3) + '%  (' + kahn_votes + ')'
-     output.write('Correy: ' + round(correy_votes / total_votes * 100,3) + '%  (' + correy_votes + ')'
-     output.write('Li: ' + round(li_votes / total_votes * 100,3) + '%  (' + li_votes + ')'
-     output.write('O\'Tooley: ' + round(otooley_votes / total_votes * 100,3) + '%  (' + otooley_votes + ')'
+     output.write('Kahn: ' + str(round(kahn_votes/vote_count * 100,3)) + '%  (' + str(kahn_votes) + ')')
+     output.write('Correy: ' + str(round(correy_votes/vote_count * 100,3)) + '%  (' + str(correy_votes) + ')')
+     output.write('Li: ' + str(round(li_votes/vote_count * 100,3)) + '%  (' + str(li_votes) + ')')
+     output.write('O\'Tooley: ' + str(round(otooley_votes/vote_count * 100,3)) + '%  (' + str(otooley_votes) + ')')
      output.write('----------------------------------------')
      output.write(f'Winner: {winner}')
      output.write('----------------------------------------')
-    
+     
